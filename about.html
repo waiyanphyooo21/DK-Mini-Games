@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DK's Mini Games - About</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">DK's Mini Games</div>
+        <div class="navbar-links">
+            <a href="main.html">Home</a>
+            <a href="about.html" class="active">About</a>
+            <a href="account.html">Account</a>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="about-content">
+            <h1>DK's Mini Games</h1>
+            <div class="about-section">
+                <h2>Welcome to DK's Mini Games!</h2>
+                <p>DK's Mini Games is a collection of fun and engaging browser-based games designed to provide entertainment and challenge for players of all skill levels. Our games are built with HTML5, CSS3, and JavaScript, ensuring a smooth and responsive experience across all devices.</p>
+            </div>
+
+            <div class="about-section">
+                <h2>Game Categories</h2>
+                <div class="details-grid">
+                    <div class="detail-item">
+                        <h3>Easy Level Games</h3>
+                        <ul>
+                            <li>Tic Tac Toe - Classic strategy game</li>
+                            <li>Rock Paper Scissors - Quick decision making</li>
+                            <li>Guess the Number - Simple number guessing game</li>
+                        </ul>
+                    </div>
+                    <div class="detail-item">
+                        <h3>Medium Level Games</h3>
+                        <ul>
+                            <li>Memory Card - Test your memory skills</li>
+                            <li>Whack a Mole - Quick reflexes required</li>
+                        </ul>
+                    </div>
+                    <div class="detail-item">
+                        <h3>Hard Level Games</h3>
+                        <ul>
+                            <li>Snake Game - Classic arcade challenge</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="about-section">
+                <p>DK's Mini Games was created by Wai Yan Phyo Oo as a personal project to showcase web development skills and provide entertainment.</p>
+            </div>
+        </div>
+    </div>
+    <style>
+        .about-content {
+            max-width: 1000px;
+            width: 90%;
+            margin: 4rem auto;
+            padding: 2rem;
+        }
+
+        .about-content h1 {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--font-color);
+        }
+
+        .about-section {
+            margin-bottom: 3rem;
+        }
+
+        .about-section h2 {
+            color: var(--main-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .detail-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+
+        .detail-item h3 {
+            color: var(--input-focus);
+            margin-bottom: 1rem;
+        }
+
+        .detail-item ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .detail-item li {
+            margin-bottom: 0.5rem;
+            color: var(--font-color);
+        }
+
+        @media (max-width: 768px) {
+            .about-content {
+                width: 95%;
+                margin: 2rem auto;
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</body>
+</html>

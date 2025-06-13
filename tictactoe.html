@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DK's Mini Games - Tic Tac Toe</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .game-container {
+            max-width: 400px;
+            margin: 100px auto;
+            text-align: center;
+        }
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 20px auto;
+        }
+        .cell {
+            width: 100px;
+            height: 100px;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+        .cell:hover {
+            background-color: #f5f5f5;
+        }
+        .status {
+            margin: 20px 0;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">DK's Mini Games</div>
+        <div class="navbar-links">
+            <a href="main.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="account.html">Account</a>
+        </div>
+    </nav>
+    <div class="game-container">
+        <h1>Tic Tac Toe</h1>
+        <div id="status" class="status">Player X's turn</div>
+        <div id="board" class="board"></div>
+        <button id="resetBtn" class="game-button">Reset Game</button>
+    </div>
+    <script>
+        const board = document.getElementById('board');
+        const status = document.getElementById('status');
+        const resetBtn = document.getElementById('resetBtn');
+        let currentPlayer = 'X';
+        let gameActive = true;
+        let boardState = ['', '', '', '', '', '', '', '', ''];
+
+        // Create board cells
+        for (let i = 0; i < 9; i++) {
+            const cell = document.createElement('div');
+            cell.className = 'cell';
+            cell.addEventListener('click', () => handleCellClick(i));
+            board.appendChild(cell);
+        }
+
+        function handleCellClick(index) {
+            if (boardState[index] || !gameActive) return;
+
+            boardState[index] = currentPlayer;
+            document.querySelectorAll('.cell')[index].textContent = currentPlayer;
+
+            if (checkWin()) {
+                status.textContent = `Player ${currentPlayer} wins!`;
+                gameActive = false;
+            } else if (checkDraw()) {
+                status.textContent = 'It\'s a draw!';
+                gameActive = false;
+            } else {
+                currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+                status.textContent = `Player ${currentPlayer}'s turn`;
+            }
+        }
+
+        function checkWin() {
+            const winConditions = [
+                [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
+                [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
+                [0, 4, 8], [2, 4, 6] // Diagonals
+            ];
+
+            return winConditions.some(condition =>
+                condition.every(index => boardState[index] === currentPlayer)
+            );
+        }
+
+        function checkDraw() {
+            return boardState.every(cell => cell !== '');
+        }
+
+        resetBtn.addEventListener('click', resetGame);
+
+        function resetGame() {
+            currentPlayer = 'X';
+            gameActive = true;
+            boardState = ['', '', '', '', '', '', '', '', ''];
+            document.querySelectorAll('.cell').forEach(cell => cell.textContent = '');
+            status.textContent = 'Player X\'s turn';
+        }
+    </script>
+</body>
+</html>
