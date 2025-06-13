@@ -4,11 +4,13 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
     const username = document.querySelector('#loginForm input[name="username"]').value;
     const password = document.querySelector('#loginForm input[name="password"]').value;
     
-    // Hardcoded credentials
-    const validUsername = 'user';
-    const validPassword = 'pass';
+    // Get all users from localStorage
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
     
-    if (username === validUsername && password === validPassword) {
+    // Check if user exists and password matches
+    const user = users.find(u => u.username === username && u.password === password);
+    
+    if (user) {
         localStorage.setItem('isLoggedIn', 'true');
         localStorage.setItem('username', username);
         window.location.href = 'main.html';
