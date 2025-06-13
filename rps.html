@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tic Tac Toe - Player vs Player</title>
+    <title>Rock Paper Scissors - Player vs Computer</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body {
             padding-top: 100px;
@@ -20,6 +21,33 @@
             text-align: center;
         }
 
+        .choices {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .choice-btn {
+            font-size: 3rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .choice-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .choice-btn.selected {
+            color: #2d8cf0;
+        }
+
+        .status {
+            margin: 1rem 0;
+            font-size: 1.2rem;
+            color: #666;
+        }
+
         .scoreboard {
             margin: 1rem 0;
             display: flex;
@@ -29,49 +57,6 @@
 
         .score-item {
             padding: 0.5rem;
-        }
-
-        .board {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin: 2rem 0;
-            max-width: 320px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .cell {
-            width: 100px;
-            height: 100px;
-            background-color: #f8f8f8;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            cursor: pointer;
-            transition: background-color 0.2s;
-            font-weight: bold;
-        }
-
-        .cell:hover {
-            background-color: #e8e8e8;
-        }
-
-        .cell.x {
-            color: #2196F3;
-        }
-
-        .cell.o {
-            color: #FF5722;
-        }
-
-        .status {
-            margin: 1rem 0;
-            font-size: 1.2rem;
-            color: #666;
         }
 
         .game-button {
@@ -94,6 +79,24 @@
             box-shadow: 0px 0px #323232;
             color: white;
         }
+
+        .result {
+            margin: 2rem 0;
+            font-size: 1.5rem;
+            color: #323232;
+        }
+
+        .result.win {
+            color: #4CAF50;
+        }
+
+        .result.lose {
+            color: #f44336;
+        }
+
+        .result.draw {
+            color: #9e9e9e;
+        }
     </style>
 </head>
 <body>
@@ -107,25 +110,30 @@
     </nav>
 
     <div class="game-container">
-        <h1>Tic Tac Toe</h1>
+        <h1>Rock Paper Scissors</h1>
         <div class="scoreboard">
             <div class="score-item">
-                <span>Player X Wins:</span>
-                <span id="playerXWins">0</span>
+                <span>Player Wins:</span>
+                <span id="playerWins">0</span>
             </div>
             <div class="score-item">
-                <span>Player O Wins:</span>
-                <span id="playerOWins">0</span>
+                <span>Computer Wins:</span>
+                <span id="computerWins">0</span>
             </div>
         </div>
-        <div class="status">Player X's turn</div>
-        <div id="board" class="board"></div>
+        <div class="status">Choose your move!</div>
+        <div class="choices">
+            <i class="fas fa-hand-rock choice-btn" data-choice="rock"></i>
+            <i class="fas fa-hand-paper choice-btn" data-choice="paper"></i>
+            <i class="fas fa-hand-scissors choice-btn" data-choice="scissors"></i>
+        </div>
+        <div class="result" id="result"></div>
         <div class="button-container">
-            <a href="#" id="restartBtn" class="game-button">Reset Game</a>
+            <a href="#" id="playAgainBtn" class="game-button">Play Again</a>
             <a href="easy.html" id="backBtn" class="game-button">Go Back</a>
         </div>
     </div>
 
-    <script src="tictactoe.js"></script>
+    <script src="rps.js"></script>
 </body>
 </html>

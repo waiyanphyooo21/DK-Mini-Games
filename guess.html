@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the Number - Player vs Computer</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            padding-top: 100px;
+        }
+
+        .game-container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .guess-input {
+            width: 100%;
+            max-width: 300px;
+            padding: 0.8rem;
+            margin: 1rem 0;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            text-align: center;
+            transition: border-color 0.3s;
+        }
+
+        .guess-input:focus {
+            outline: none;
+            border-color: #2d8cf0;
+        }
+
+        .guess-input:invalid {
+            border-color: #f44336;
+        }
+
+        .guess-input:valid {
+            border-color: #4CAF50;
+        }
+
+        .guess-button {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background-color: #2d8cf0;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            border: 2px solid #323232;
+            box-shadow: 4px 4px #323232;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            margin: 1rem 0;
+        }
+
+        .guess-button:hover {
+            background-color: #2d8cf0;
+            transform: translate(3px, 3px);
+            box-shadow: 0px 0px #323232;
+            color: white;
+        }
+
+        .guess-button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            box-shadow: 4px 4px #ccc;
+        }
+
+        .status {
+            margin: 1rem 0;
+            font-size: 1.2rem;
+            color: #666;
+        }
+
+        .guess-history {
+            margin: 1rem 0;
+            padding: 1rem;
+            background-color: #f8f8f8;
+            border-radius: 5px;
+            text-align: left;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .guess-item {
+            margin: 0.5rem 0;
+            padding: 0.5rem;
+            border-radius: 3px;
+            transition: background-color 0.3s;
+        }
+
+        .guess-item.high {
+            color: #f44336;
+        }
+
+        .guess-item.low {
+            color: #4CAF50;
+        }
+
+        .guess-item.correct {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        .scoreboard {
+            margin: 1rem 0;
+            display: flex;
+            justify-content: space-around;
+            font-size: 1.2rem;
+        }
+
+        .score-item {
+            padding: 0.5rem;
+        }
+
+        .button-container {
+            margin-top: 2rem;
+        }
+
+        .game-button {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background-color: #2d8cf0;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            border: 2px solid #323232;
+            box-shadow: 4px 4px #323232;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            margin: 0 0.5rem;
+        }
+
+        .game-button:hover {
+            background-color: #2d8cf0;
+            transform: translate(3px, 3px);
+            box-shadow: 0px 0px #323232;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">DK's Mini Games</div>
+        <div class="navbar-links">
+            <a href="main.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="account.html">Account</a>
+        </div>
+    </nav>
+
+    <div class="game-container">
+        <h1>Guess the Number</h1>
+        <div class="scoreboard">
+            <div class="score-item">
+                <span>Guesses:</span>
+                <span id="guessCount">0</span>
+            </div>
+            <div class="score-item">
+                <span>Best Score:</span>
+                <span id="bestScore">-</span>
+            </div>
+        </div>
+        <div class="status" id="status">I'm thinking of a number between 1 and 100...</div>
+        <input type="number" id="guessInput" min="1" max="100" required>
+        <button id="guessButton" class="guess-button">Make a Guess</button>
+        <div class="button-container">
+            <a href="#" id="newGameBtn" class="game-button">New Game</a>
+            <a href="easy.html" id="backBtn" class="game-button">Go Back</a>
+        </div>
+    </div>
+
+    <script src="guess.js"></script>
+</body>
+</html>
