@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whack a Mole Game</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            padding-top: 100px;
+        }
+
+        .game-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .scoreboard {
+            display: flex;
+            justify-content: space-between;
+            margin: 1rem 0;
+            font-size: 1.2rem;
+        }
+
+        .score-item {
+            padding: 0.5rem;
+        }
+
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .hole {
+            width: 100%;
+            aspect-ratio: 1;
+            background-color: #2d8cf0;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .mole, .bomb {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            background-color: #fff;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .mole {
+            color: #2d8cf0;
+            font-size: 2rem;
+        }
+
+        .bomb {
+            color: #f44336;
+            font-size: 2rem;
+        }
+
+        .hole:hover {
+            transform: scale(1.05);
+        }
+
+        .status {
+            margin: 1rem 0;
+            font-size: 1.2rem;
+            color: #666;
+        }
+
+        .button-container {
+            margin-top: 2rem;
+        }
+
+        .game-button {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background-color: #2d8cf0;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            border: 2px solid #323232;
+            box-shadow: 4px 4px #323232;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            margin: 0 0.5rem;
+        }
+
+        .game-button:hover {
+            background-color: #2d8cf0;
+            transform: translate(3px, 3px);
+            box-shadow: 0px 0px #323232;
+            color: white;
+        }
+
+        .game-over {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            display: none;
+            z-index: 1000;
+        }
+
+        .game-over h2 {
+            color: #323232;
+            margin-bottom: 1rem;
+        }
+
+        .game-over p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">DK's Mini Games</div>
+        <div class="navbar-links">
+            <a href="main.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="account.html">Account</a>
+        </div>
+    </nav>
+
+    <div class="game-container">
+        <h1>Whack a Mole</h1>
+        <div class="scoreboard">
+            <div class="score-item">
+                <span>Time Left:</span>
+                <span id="timer">30</span>
+            </div>
+            <div class="score-item">
+                <span>Score:</span>
+                <span id="score">0</span>
+            </div>
+            <div class="score-item">
+                <span>Best Score:</span>
+                <span id="bestScore">-</span>
+            </div>
+        </div>
+        <div class="status">Click the moles! Avoid the bombs!</div>
+        <div class="game-grid" id="gameGrid"></div>
+        <div class="button-container">
+            <a href="#" id="newGameBtn" class="game-button">New Game</a>
+            <a href="medium.html" id="backBtn" class="game-button">Go Back</a>
+        </div>
+        <div class="game-over" id="gameOver">
+            <h2>Game Over!</h2>
+            <p>Final Score: <span id="finalScore">0</span></p>
+            <button id="playAgainBtn" class="game-button">Play Again</button>
+        </div>
+    </div>
+
+    <script src="whack.js"></script>
+</body>
+</html>
