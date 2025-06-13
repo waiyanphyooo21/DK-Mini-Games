@@ -4,11 +4,17 @@ class SnakeGame {
         this.cellSize = 20;
         this.snake = [{ x: 10, y: 10 }];
         this.food = null;
-        this.direction = null;
+        this.direction = 'right';
         this.score = 0;
         this.bestScore = parseInt(localStorage.getItem('snake_bestScore')) || 0;
         this.gameActive = false;
         this.gameLoop = null;
+        this.gameGrid = document.getElementById('gameGrid');
+        this.scoreElement = document.getElementById('score');
+        this.bestScoreElement = document.getElementById('bestScore');
+        this.finalScoreElement = document.getElementById('finalScore');
+        this.gameOver = document.getElementById('gameOver');
+        this.statusElement = document.querySelector('.status');
         this.initializeGame();
         this.addEventListeners();
     }
@@ -16,7 +22,7 @@ class SnakeGame {
     initializeGame() {
         this.snake = [{ x: 10, y: 10 }];
         this.food = null;
-        this.direction = null;
+        this.direction = 'right';
         this.score = 0;
         this.gameActive = true;
         this.clearGameLoop();
@@ -24,11 +30,12 @@ class SnakeGame {
         this.spawnFood();
         this.updateUI();
         this.gameOver.style.display = 'none';
+        this.statusElement.textContent = 'Use arrow keys to move!';
     }
 
     createGrid() {
-        const gameGrid = document.getElementById('gameGrid');
-        gameGrid.innerHTML = '';
+        this.gameGrid.innerHTML = '';
+        this.cells = [];
 
         for (let y = 0; y < this.gridSize; y++) {
             for (let x = 0; x < this.gridSize; x++) {
@@ -36,7 +43,8 @@ class SnakeGame {
                 cell.className = 'cell';
                 cell.style.width = `${this.cellSize}px`;
                 cell.style.height = `${this.cellSize}px`;
-                gameGrid.appendChild(cell);
+                this.gameGrid.appendChild(cell);
+                this.cells.push(cell);
             }
         }
     }
@@ -83,7 +91,7 @@ class SnakeGame {
         }
 
         if (!this.gameLoop) {
-            this.gameLoop = setInterval(() => this.updateGame(), 100);
+            this.gameLoop = setInterval(() => this.updateGame(), 200);
         }
     }
 
@@ -105,14 +113,23 @@ class SnakeGame {
                 break;
         }
 
-        if (this.checkCollision(head)) {
+        // Check for wall collision
+        if (head.x < 0 || head.x >= this.gridSize || head.y < 0 || head.y >= this.gridSize) {
             this.endGame();
             return;
         }
 
+        // Check for self collision
+        if (this.snake.some(segment => segment.x === head.x && segment.y === head.y)) {
+            this.endGame();
+            return;
+        }
+
+        // Add new head
         this.snake.unshift(head);
 
-        if (this.checkFood()) {
+        // Check if we ate food
+        if (head.x === this.food.x && head.y === this.food.y) {
             this.score += 10;
             this.spawnFood();
         } else {
@@ -122,65 +139,49 @@ class SnakeGame {
         this.updateUI();
     }
 
-    checkCollision(head) {
-        return (
-            head.x < 0 ||
-            head.x >= this.gridSize ||
-            head.y < 0 ||
-            head.y >= this.gridSize ||
-            this.snake.some(segment => segment.x === head.x && segment.y === head.y)
-        );
-    }
-
-    checkFood() {
-        return this.snake[0].x === this.food.x && this.snake[0].y === this.food.y;
-    }
-
     spawnFood() {
-        let x, y;
+        let newFood;
         do {
-            x = Math.floor(Math.random() * this.gridSize);
-            y = Math.floor(Math.random() * this.gridSize);
-        } while (this.snake.some(segment => segment.x === x && segment.y === y));
+            newFood = {
+                x: Math.floor(Math.random() * this.gridSize),
+                y: Math.floor(Math.random() * this.gridSize)
+            };
+        } while (this.snake.some(segment => segment.x === newFood.x && segment.y === newFood.y));
 
-        this.food = { x, y };
+        this.food = newFood;
     }
 
     updateUI() {
-        const cells = document.querySelectorAll('.cell');
-        cells.forEach(cell => {
+        this.cells.forEach(cell => {
             cell.className = 'cell';
         });
 
         this.snake.forEach(segment => {
-            const cell = cells[segment.y * this.gridSize + segment.x];
-            cell.className = 'cell snake';
+            const cellIndex = segment.y * this.gridSize + segment.x;
+            this.cells[cellIndex].classList.add('snake');
         });
 
         if (this.food) {
-            const cell = cells[this.food.y * this.gridSize + this.food.x];
-            cell.className = 'cell food';
+            const foodIndex = this.food.y * this.gridSize + this.food.x;
+            this.cells[foodIndex].classList.add('food');
         }
 
-        document.getElementById('score').textContent = this.score;
-        document.getElementById('bestScore').textContent = this.bestScore;
-        
-        if (this.gameActive) {
-            document.querySelector('.status').textContent = 'Use arrow keys to move!';
-        }
+        this.scoreElement.textContent = this.score;
+        this.bestScoreElement.textContent = this.bestScore;
     }
 
     endGame() {
         this.gameActive = false;
         this.clearGameLoop();
-
+        
         if (this.score > this.bestScore) {
             this.bestScore = this.score;
-            localStorage.setItem('snake_bestScore', this.score.toString());
+            localStorage.setItem('snake_bestScore', this.score);
         }
-
+        
+        this.finalScoreElement.textContent = this.score;
         this.gameOver.style.display = 'block';
-        document.getElementById('finalScore').textContent = this.score;
+        this.statusElement.textContent = 'Game Over!';
     }
 
     clearGameLoop() {

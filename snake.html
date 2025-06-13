@@ -25,46 +25,60 @@
             grid-template-columns: repeat(20, 1fr);
             gap: 0;
             margin: 2rem 0;
+            background-color: #f0f0f0;
+            border-radius: 5px;
         }
 
         .cell {
             width: 20px;
             height: 20px;
             border: 1px solid #ddd;
+            transition: background-color 0.2s ease;
         }
 
         .snake {
             background-color: #2d8cf0;
+            box-shadow: 0 0 5px rgba(45, 140, 240, 0.5);
         }
 
         .food {
             background-color: #4CAF50;
+            border-radius: 50%;
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
         }
 
         .scoreboard {
             display: flex;
-            justify-content: space-between;
+            justify-content: space-around;
             margin: 1rem 0;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
+            color: #323232;
         }
 
         .score-item {
-            padding: 0.5rem;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            font-weight: 600;
         }
 
         .status {
             margin: 1rem 0;
-            font-size: 1.2rem;
-            color: #666;
+            font-size: 1.5rem;
+            color: #323232;
+            font-weight: 500;
         }
 
         .button-container {
             margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
         }
 
         .game-button {
             display: inline-block;
-            padding: 0.8rem 1.5rem;
+            padding: 1rem 2rem;
             background-color: #2d8cf0;
             color: white;
             text-decoration: none;
@@ -73,7 +87,8 @@
             box-shadow: 4px 4px #323232;
             transition: all 0.3s ease;
             font-weight: 600;
-            margin: 0 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .game-button:hover {
@@ -85,11 +100,13 @@
 
         .controls {
             margin: 1rem 0;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
+            color: #323232;
         }
 
         .controls span {
             margin: 0 0.5rem;
+            font-weight: 600;
         }
 
         .game-over {
@@ -98,6 +115,24 @@
             left: 50%;
             transform: translate(-50%, -50%);
             background-color: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            z-index: 1000;
+        }
+
+        .game-over h2 {
+            color: #323232;
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+
+        .game-over p {
+            color: #323232;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
             padding: 2rem;
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
