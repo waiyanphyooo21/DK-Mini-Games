@@ -11,9 +11,9 @@
         }
 
         .game-container {
-            max-width: 800px;
+            max-width: 600px;
             margin: 2rem auto;
-            padding: 2rem;
+            padding: 1.5rem;
             background-color: white;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -34,8 +34,8 @@
         .game-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 1rem;
-            margin: 2rem 0;
+            gap: 0.5rem;
+            margin: 1.5rem 0;
         }
 
         .card {
@@ -86,6 +86,20 @@
             margin: 1rem 0;
             font-size: 1.2rem;
             color: #666;
+            display: block;
+        }
+
+        .game-over {
+            display: none;
+            margin: 2rem 0;
+            padding: 1rem;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .game-over.show {
+            display: block;
         }
 
         .button-container {
@@ -136,7 +150,8 @@
                 <span id="moves">0</span>
             </div>
         </div>
-        <div class="status">Start matching cards!</div>
+        <div class="countdown" id="countdown"></div>
+        <div class="status" id="status">Start matching cards!</div>
         <div class="game-grid" id="gameGrid"></div>
         <div class="button-container">
             <a href="#" id="newGameBtn" class="game-button">New Game</a>

@@ -6,6 +6,11 @@ class MemoryGame {
         this.timer = null;
         this.timeElapsed = 0;
         this.bestTime = localStorage.getItem('memory_bestTime');
+        this.timeLeft = 30;
+        this.score = 0;
+        this.bestScore = parseInt(localStorage.getItem('memory_bestScore')) || 0;
+        this.gameActive = false;
+        this.moles = [];
         this.initializeGame();
         this.addEventListeners();
     }
@@ -15,12 +20,41 @@ class MemoryGame {
         this.flippedCards = [];
         this.moves = 0;
         this.timeElapsed = 0;
+        this.gameActive = false;
         this.clearTimer();
         this.createCards();
         this.shuffleCards();
         this.renderGame();
-        this.startTimer();
+        this.startCountdown();
         this.updateUI();
+    }
+
+    startCountdown() {
+        const countdownElement = document.getElementById('countdown');
+        countdownElement.style.display = 'block';
+        let countdown = 5;
+        
+        const countdownInterval = setInterval(() => {
+            countdownElement.textContent = `Game starts in ${countdown}...`;
+            countdown--;
+            
+            if (countdown < 0) {
+                clearInterval(countdownInterval);
+                countdownElement.style.display = 'none';
+                this.gameActive = true;
+                this.startTimer();
+                
+                // Re-enable card click events
+                const cards = document.querySelectorAll('.card');
+                cards.forEach(card => {
+                    card.addEventListener('click', () => this.handleCardClick(card));
+                });
+
+                // Show start message
+                const statusElement = document.getElementById('status');
+                statusElement.textContent = 'Start matching cards!';
+            }
+        }, 1000);
     }
 
     createCards() {
@@ -65,13 +99,8 @@ class MemoryGame {
     }
 
     addEventListeners() {
-        const cards = document.querySelectorAll('.card');
         const newGameBtn = document.getElementById('newGameBtn');
         const backBtn = document.getElementById('backBtn');
-
-        cards.forEach(card => {
-            card.addEventListener('click', () => this.handleCardClick(card));
-        });
 
         newGameBtn.addEventListener('click', (e) => {
             e.preventDefault();
@@ -120,16 +149,19 @@ class MemoryGame {
     checkWin() {
         if (this.cards.every(card => card.matched)) {
             this.stopTimer();
-            const minutes = Math.floor(this.timeElapsed / 60);
-            const seconds = this.timeElapsed % 60;
-            const formattedTime = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-
-            if (!this.bestTime || this.timeElapsed < parseInt(this.bestTime)) {
-                localStorage.setItem('memory_bestTime', this.timeElapsed.toString());
-                alert(`Congratulations! You won in ${formattedTime}! New best time!`);
-            } else {
-                alert(`Congratulations! You won in ${formattedTime}!`);
-            }
+            const status = document.getElementById('status');
+            status.textContent = 'Congratulations! You won!';
+            
+            // Disable cards
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.removeEventListener('click', () => this.handleCardClick(card));
+                // Make sure all cards stay visible
+                card.classList.add('flipped');
+            });
+            
+            // Force UI update
+            this.updateUI();
         }
     }
 
@@ -158,8 +190,11 @@ class MemoryGame {
 
     updateUI() {
         document.getElementById('moves').textContent = this.moves;
-        const status = document.querySelector('.status');
-        status.textContent = this.flippedCards.length === 2 ? 'Checking match...' : 'Start matching cards!';
+        // Only update status if game is not won
+        if (!this.cards.every(card => card.matched)) {
+            const status = document.getElementById('status');
+            status.textContent = this.flippedCards.length === 2 ? 'Checking match...' : 'Start matching cards!';
+        }
     }
 }
 

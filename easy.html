@@ -5,6 +5,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DK's Mini Games - Easy Level</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .game-card {
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .game-card h2 {
+            margin-bottom: 1.5rem;
+            color: #323232;
+        }
+
+        .game-card p {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        .game-button {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background-color: #2d8cf0;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            border: 2px solid #323232;
+            box-shadow: 4px 4px #323232;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .game-button:hover {
+            background-color: #2d8cf0;
+            transform: translate(3px, 3px);
+            box-shadow: 0px 0px #323232;
+            color: white;
+        }
+
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+            padding: 0 20px;
+        }
+
+        .back-button-container {
+            text-align: center;
+            margin-top: 2rem;
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar">
@@ -15,28 +75,31 @@
             <a href="account.html">Account</a>
         </div>
     </nav>
-    <div class="container">
-        <div class="game-section">
-            <h1>Easy Level Games</h1>
-            <div class="game-grid">
-                <div class="game-card">
-                    <h3>Tic Tac Toe</h3>
-                    <a href="tictactoe.html" class="game-button">Play Now</a>
-                </div>
-                <div class="game-card">
-                    <h3>Rock Paper Scissors</h3>
-                    <a href="rps.html" class="game-button">Play Now</a>
-                </div>
-                <div class="game-card">
-                    <h3>Guess the Number</h3>
-                    <a href="guess.html" class="game-button">Play Now</a>
-                </div>
+
+    <div class="game-section">
+        <h1>Easy Level Games</h1>
+        <div class="game-grid">
+            <div class="game-card">
+                <h2>Tic Tac Toe</h2>
+                <p>Play against the computer in this classic game. Try to get three in a row!</p>
+                <a href="tictactoe.html" class="game-button">Play Now</a>
             </div>
-            <div class="back-button-container">
-                <a href="main.html" class="game-button">Go Back</a>
+            <div class="game-card">
+                <h2>Rock Paper Scissors</h2>
+                <p>Choose rock, paper, or scissors to play against the computer. Simple and fun!</p>
+                <a href="rps.html" class="game-button">Play Now</a>
+            </div>
+            <div class="game-card">
+                <h2>Guess the Number</h2>
+                <p>Guess the number between 1 and 100. Get feedback on whether your guess is too high or too low!</p>
+                <a href="guess.html" class="game-button">Play Now</a>
             </div>
         </div>
+        <div class="back-button-container">
+            <a href="main.html" class="game-button">Go Back</a>
+        </div>
     </div>
+
     <script src="level.js"></script>
 </body>
 </html>
