@@ -1,7 +1,7 @@
 window.onload = function() {
     // Check if user is logged in
     if (!localStorage.getItem('isLoggedIn')) {
-        window.location.href = 'login.html';
+        window.location.href = 'index.html';
         return;
     }
 
@@ -26,6 +26,6 @@ window.onload = function() {
     document.getElementById('logoutBtn').addEventListener('click', function() {
         localStorage.removeItem('isLoggedIn');
         localStorage.removeItem('username');
-        window.location.href = 'login.html';
+        window.location.href = 'index.html';
     });
 }
