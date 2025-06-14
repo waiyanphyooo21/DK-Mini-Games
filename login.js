@@ -4,10 +4,8 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
     const username = document.querySelector('#loginForm input[name="username"]').value;
     const password = document.querySelector('#loginForm input[name="password"]').value;
     
-    // Get all users from localStorage
     const users = JSON.parse(localStorage.getItem('users') || '[]');
     
-    // Check if user exists and password matches
     const user = users.find(u => u.username === username && u.password === password);
     
     if (user) {
@@ -19,7 +17,6 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
     }
 });
 
-// Signup form handling
 document.getElementById('signupForm').addEventListener('submit', function(e) {
     e.preventDefault();
     
@@ -32,11 +29,10 @@ document.getElementById('signupForm').addEventListener('submit', function(e) {
         return;
     }
     
-    // Store user data in localStorage
     const users = JSON.parse(localStorage.getItem('users') || '[]');
     users.push({ name, username, password });
     localStorage.setItem('users', JSON.stringify(users));
     
     alert('Account created successfully! Please login.');
-    document.querySelector('.toggle').checked = false; // Switch back to login form
+    document.querySelector('.toggle').checked = false; 
 });
