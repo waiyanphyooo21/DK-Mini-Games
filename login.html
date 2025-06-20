@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DK's Mini Games - Login</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>DK's Mini Games</h1>
+        <div class="login-container">
+            <form id="loginForm" class="login-form">
+                <h2>Login</h2>
+                <input type="text" name="username" placeholder="Username" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+
+            <div class="toggle-container">
+                <input type="checkbox" class="toggle" id="toggle">
+                <label for="toggle">Sign Up</label>
+            </div>
+
+            <form id="signupForm" class="signup-form">
+                <h2>Sign Up</h2>
+                <input type="text" name="name" placeholder="Full Name" required>
+                <input type="text" name="username" placeholder="Username" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <button type="submit">Sign Up</button>
+            </form>
+        </div>
+    </div>
+    <script src="login.js"></script>
+</body>
+</html>

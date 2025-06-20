@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DK's Mini Games - Main</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="modal.css">
 </head>
 <body>
     <nav class="navbar">
@@ -19,18 +20,68 @@
         <div class="game-levels">
             <div class="level-card">
                 <h2>Easy Level</h2>
-                <a href="easy.html" class="game-button">Play Now</a>
+                <button class="game-button" onclick="checkLogin('easy.html')">Play Now</button>
             </div>
             <div class="level-card">
                 <h2>Medium Level</h2>
-                <a href="medium.html" class="game-button">Play Now</a>
+                <button class="game-button" onclick="checkLogin('medium.html')">Play Now</button>
             </div>
             <div class="level-card">
                 <h2>Hard Level</h2>
-                <a href="hard.html" class="game-button">Play Now</a>
+                <button class="game-button" onclick="checkLogin('hard.html')">Play Now</button>
+            </div>
+        </div>
+        
+        <!-- Login Modal -->
+        <div id="loginModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Login Required</h2>
+                <p>Please login to access the games:</p>
+                <button onclick="window.location.href='login.html'" class="login-btn">Login</button>
+                <button onclick="document.getElementById('loginModal').style.display='none'" class="cancel-btn">Cancel</button>
             </div>
         </div>
     </div>
     <script src="main.js"></script>
+        <script>
+            // Initialize modal display state
+            document.addEventListener('DOMContentLoaded', function() {
+                const modal = document.getElementById('loginModal');
+                if (modal) {
+                    modal.style.display = 'none';
+                }
+            });
+
+            // Function to show login modal when clicking game buttons
+            function checkLogin(gameUrl) {
+                if (!localStorage.getItem('isLoggedIn')) {
+                    const modal = document.getElementById('loginModal');
+                    if (modal) {
+                        modal.style.display = 'block';
+                    }
+                    // Store the intended game URL
+                    localStorage.setItem('intendedGame', gameUrl);
+                } else {
+                    window.location.href = gameUrl;
+                }
+            }
+
+            // Close modal when clicking the ×
+            document.querySelector('.close').onclick = function() {
+                const modal = document.getElementById('loginModal');
+                if (modal) {
+                    modal.style.display = 'none';
+                }
+            }
+
+            // Close modal when clicking outside
+            window.onclick = function(event) {
+                const modal = document.getElementById('loginModal');
+                if (event.target == modal) {
+                    modal.style.display = 'none';
+                }
+            }
+        </script>
 </body>
 </html>

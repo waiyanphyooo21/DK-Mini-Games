@@ -11,7 +11,14 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
     if (user) {
         localStorage.setItem('isLoggedIn', 'true');
         localStorage.setItem('username', username);
-        window.location.href = 'main.html';
+        // Check if there was an intended game URL
+        const intendedGame = localStorage.getItem('intendedGame');
+        if (intendedGame) {
+            localStorage.removeItem('intendedGame');
+            window.location.href = intendedGame;
+        } else {
+            window.location.href = 'main.html';
+        }
     } else {
         alert('Invalid username or password!');
     }
